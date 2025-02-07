@@ -3,259 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artistic Horizons - Cultural Events</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ArtVerse - Creative Collective</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: #0f0f0f;
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
             color: #fff;
+            overflow-x: hidden;
         }
 
-        .header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            padding: 1rem 5%;
+        /* Logo Reveal Animation */
+        .logo-container {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #ff6b6b;
-        }
-
-        .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            animation: fadeIn 1.5s ease-in;
+            background: #1a1a1a;
+            display: grid;
+            place-items: center;
+            z-index: 1000;
+            animation: logoReveal 2.5s forwards;
         }
 
-        .hero-content h1 {
+        @keyframes logoReveal {
+            0% { clip-path: circle(100% at 50% 50%); }
+            70% { clip-path: circle(0% at 50% 50%); opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
             font-size: 4rem;
-            margin-bottom: 1rem;
             background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 5rem 5%;
-        }
-
-        .event-card {
-            background: #1a1a1a;
-            border-radius: 15px;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* Video Banner */
+        .hero {
+            height: 100vh;
             position: relative;
             overflow: hidden;
         }
 
-        .event-card:hover {
-            transform: translateY(-10px);
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeUp 1s forwards 1s;
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            padding: 8rem 5%;
+            background: #151515;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .event-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, #ff6b6b, transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
         }
 
-        .event-card:hover::before {
-            animation: borderEffect 2s linear infinite;
+        /* Team Section */
+        .team {
+            padding: 8rem 5%;
         }
 
-        .event-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #ff6b6b;
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes borderEffect {
-            0% { transform: rotate(45deg) translateX(-50%); }
-            100% { transform: rotate(45deg) translateX(50%); }
-        }
-
-        .event-card:nth-child(even) {
-            animation: slideUp 1s ease-out;
-        }
-
-        .event-card:nth-child(odd) {
-            animation: slideRight 1s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideRight {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .footer {
-            background: #1a1a1a;
+        .team-member {
             text-align: center;
             padding: 2rem;
-            margin-top: 5rem;
-            border-top: 1px solid #333;
+            background: #1a1a1a;
+            border-radius: 15px;
+            transition: transform 0.3s;
         }
 
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border: 3px solid #ff6b6b;
+            transition: transform 0.3s;
+        }
+
+        .member-photo:hover {
+            transform: rotate(10deg);
+        }
+
+        /* Merchandise */
+        .merch {
+            padding: 8rem 5%;
+            background: #151515;
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .merch-item {
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .merch-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .merch-image {
+            height: 350px;
+            background: #2a2a2a;
+            overflow: hidden;
+        }
+
+        .merch-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .merch-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            background: #1a1a1a;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: #252525;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #ff6b6b;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
+            .hero-title { font-size: 3rem; }
+            .contact-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <h1>Artistic Horizons</h1>
-            <ul class="nav-links">
-                <li><a href="#music">Music</a></li>
-                <li><a href="#dance">Dance</a></li>
-                <li><a href="#arts">Visual Arts</a></li>
-                <li><a href="#literary">Literary</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Logo Reveal -->
+    <div class="logo-container">
+        <h1 class="logo">ArtVerse</h1>
+    </div>
 
+    <!-- Video Banner -->
     <section class="hero">
+        <video class="video-bg" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-colored-powder-explosion-in-slow-motion-2228.mp4" type="video/mp4">
+        </video>
         <div class="hero-content">
-            <h1>Where Creativity Meets Passion</h1>
-            <p>Explore our curated collection of artistic events</p>
+            <h1 class="hero-title scroll-reveal">Where Art Comes Alive</h1>
+            <p class="scroll-reveal">Discover • Create • Inspire</p>
         </div>
     </section>
 
-    <main class="events-grid">
-        <!-- Music Events -->
-        <div class="event-card" id="music">
-            <i class="fas fa-music event-icon"></i>
-            <h2>Music Events</h2>
-            <p>Experience soul-stirring melodies from classical symphonies to modern beats.</p>
-            <ul class="event-list">
-                <li>Jazz Night - Every Friday</li>
-                <li>Electronic Music Festival - Aug 15-17</li>
-                <li>Classical Concert Series - Monthly</li>
-            </ul>
+    <!-- Photo Gallery -->
+    <section class="gallery">
+        <h2 class="scroll-reveal">Moments Captured</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item scroll-reveal">
+                <img src="https://source.unsplash.com/random/600x800?art" alt="Gallery Image">
+            </div>
+            <!-- Add 5 more gallery items -->
         </div>
+    </section>
 
-        <!-- Dance Events -->
-        <div class="event-card" id="dance">
-            <i class="fas fa-child event-icon"></i>
-            <h2>Dance Performances</h2>
-            <p>From ballet to hip-hop, witness the poetry of motion.</p>
-            <ul class="event-list">
-                <li>Contemporary Dance Workshop - July 20</li>
-                <li>Salsa Night - Every Thursday</li>
-                <li>Bharatanatyam Recital - Aug 5</li>
-            </ul>
+    <!-- Team Section -->
+    <section class="team">
+        <h2 class="scroll-reveal">Our Creative Tribe</h2>
+        <div class="team-grid">
+            <div class="team-member scroll-reveal">
+                <div class="member-photo">
+                    <img src="https://source.unsplash.com/random/600x600?portrait" alt="Team Member">
+                </div>
+                <h3>Jane Smith</h3>
+                <p>Lead Curator</p>
+            </div>
+            <!-- Add 3 more team members -->
         </div>
+    </section>
 
-        <!-- Visual Arts -->
-        <div class="event-card" id="arts">
-            <i class="fas fa-palette event-icon"></i>
-            <h2>Visual Arts</h2>
-            <p>Immerse yourself in stunning visual creations.</p>
-            <ul class="event-list">
-                <li>Photography Exhibition - Ongoing</li>
-                <li>Street Art Festival - July 25-28</li>
-                <li>Oil Painting Masterclass - Aug 10</li>
-            </ul>
+    <!-- Merchandise -->
+    <section class="merch">
+        <h2 class="scroll-reveal">Wear Your Art</h2>
+        <div class="merch-grid">
+            <div class="merch-item scroll-reveal">
+                <div class="merch-image">
+                    <img src="https://source.unsplash.com/random/600x600?tshirt" alt="Merch">
+                </div>
+                <div class="merch-info">
+                    <h3>Abstract Dreams Tee</h3>
+                    <p>$39.99</p>
+                </div>
+            </div>
+            <!-- Add 3 more merch items -->
         </div>
+    </section>
 
-        <!-- Literary Events -->
-        <div class="event-card" id="literary">
-            <i class="fas fa-book-open event-icon"></i>
-            <h2>Literary Arts</h2>
-            <p>Celebrate the written and spoken word.</p>
-            <ul class="event-list">
-                <li>Poetry Slam Competition - July 30</li>
-                <li>Creative Writing Workshop - Weekly</li>
-                <li>Author Meet & Greet - Aug 12</li>
-            </ul>
+    <!-- Contact -->
+    <section class="contact">
+        <h2 class="scroll-reveal">Connect With Us</h2>
+        <div class="contact-grid">
+            <div class="contact-info scroll-reveal">
+                <p><i class="fas fa-map-marker-alt"></i> 123 Art Street, Creative City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) ART-LOVE</p>
+                <div class="social-links">
+                    <!-- Add social media icons -->
+                </div>
+            </div>
+            <form class="contact-form scroll-reveal">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <textarea rows="5" placeholder="Your Message"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </div>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2023 Artistic Horizons. All rights reserved.</p>
-    </footer>
+    </section>
 
     <script>
-        // Add smooth scrolling to all links
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
-        });
-
-        // Add scroll animation for event cards
-        window.addEventListener('scroll', function() {
-            const eventCards = document.querySelectorAll('.event-card');
-            const windowHeight = window.innerHeight;
-
-            eventCards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < windowHeight - 100) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
             });
         });
     </script>
